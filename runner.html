@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Athlete Runner | Talmage Jones</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,800" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #002e5d; /* BYU Navy */
+            --accent: #00d4ff;
+            --bg: #0b0d10;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: var(--bg);
+            font-family: 'Open Sans', sans-serif;
+            overflow: hidden;
+            color: white;
+        }
+
+        #game-container {
+            position: relative;
+            width: 800px;
+            height: 300px;
+            background: linear-gradient(180deg, #161b22 0%, #0b0d10 100%);
+            border-bottom: 4px solid var(--primary);
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            border-radius: 8px;
+        }
+
+        /* Player Styling */
+        #player {
+            position: absolute;
+            bottom: 0;
+            left: 50px;
+            width: 40px;
+            height: 60px;
+            background-color: var(--accent);
+            border-radius: 4px;
+            box-shadow: 0 0 15px var(--accent);
+            transition: transform 0.1s;
+        }
+
+        /* Obstacle Styling */
+        .obstacle {
+            position: absolute;
+            bottom: 0;
+            width: 30px;
+            height: 40px;
+            background-color: #ff4d4d;
+            border-radius: 4px;
+            box-shadow: 0 0 10px #ff4d4d;
+        }
+
+        /* UI Elements */
+        #score {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 24px;
+            font-weight: 800;
+            color: white;
+            z-index: 10;
+        }
+
+        #game-over {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(11, 13, 16, 0.9);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 20;
+            backdrop-filter: blur(5px);
+        }
+
+        #game-over h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+            color: #ff4d4d;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+        }
+
+        #game-over p {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #ccc;
+        }
+
+        button {
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            background-color: var(--accent);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            background-color: white;
+        }
+
+        .controls-hint {
+            position: absolute;
+            bottom: -40px;
+            width: 100%;
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="game-container">
+        <div id="score">Score: 0</div>
+        <div id="player"></div>
+        
+        <div id="game-over">
+            <h1>Game Over</h1>
+            <p id="final-score">Your Score: 0</p>
+            <button onclick="resetGame()">Play Again</button>
+        </div>
+    </div>
+    <div class="controls-hint">Press [SPACE] to Jump</div>
+
+    <script>
+        const player = document.getElementById('player');
+        const container = document.getElementById('game-container');
+        const scoreElement = document.getElementById('score');
+        const gameOverScreen = document.getElementById('game-over');
+        const finalScoreElement = document.getElementById('final-score');
+
+        // Game Constants & Variables
+        let isJumping = false;
+        let gravity = 0.9;
+        let score = 0;
+        let isGameOver = false;
+        let gameSpeed = 5;
+        let obstacleTimer;
+
+        // Player Position
+        let position = 0;
+
+        function handleInput(e) {
+            if (e.code === "Space") {
+                jump();
+            }
+        }
+
+        function jump() {
+            if (isJumping || isGameOver) return;
+            
+            isJumping = true;
+            let velocity = 15;
+            
+            let jumpInterval = setInterval(() => {
+                if (velocity <= -15) {
+                    clearInterval(jumpInterval);
+                    isJumping = false;
+                    position = 0;
+                    player.style.bottom = position + 'px';
+                } else {
+                    velocity -= gravity;
+                    position += velocity;
+                    if (position < 0) position = 0;
+                    player.style.bottom = position + 'px';
+                }
+            }, 20);
+        }
+
+        function createObstacle() {
+            if (isGameOver) return;
+
+            const obstacle = document.createElement('div');
+            obstacle.classList.add('obstacle');
+            container.appendChild(obstacle);
+
+            let obstaclePosition = 800;
+            obstacle.style.left = obstaclePosition + 'px';
+
+            let moveInterval = setInterval(() => {
+                // Collision Detection
+                if (obstaclePosition > 50 && obstaclePosition < 90 && position < 40) {
+                    clearInterval(moveInterval);
+                    endGame();
+                }
+
+                obstaclePosition -= gameSpeed;
+                obstacle.style.left = obstaclePosition + 'px';
+
+                // Check if cleared
+                if (obstaclePosition < -30) {
+                    clearInterval(moveInterval);
+                    container.removeChild(obstacle);
+                    if (!isGameOver) {
+                        score++;
+                        scoreElement.innerHTML = `Score: ${score}`;
+                        // Increase difficulty
+                        gameSpeed += 0.2;
+                    }
+                }
+            }, 20);
+
+            // Randomize next obstacle timing
+            let nextSpawn = Math.random() * (2000 - gameSpeed * 50) + 700;
+            if (nextSpawn < 600) nextSpawn = 600;
+
+            if (!isGameOver) {
+                obstacleTimer = setTimeout(createObstacle, nextSpawn);
+            }
+        }
+
+        function endGame() {
+            isGameOver = true;
+            gameOverScreen.style.display = 'flex';
+            finalScoreElement.innerHTML = `Your Score: ${score}`;
+            clearTimeout(obstacleTimer);
+        }
+
+        function resetGame() {
+            // Remove existing obstacles
+            const obstacles = document.querySelectorAll('.obstacle');
+            obstacles.forEach(obs => obs.remove());
+
+            // Reset Variables
+            isGameOver = false;
+            score = 0;
+            gameSpeed = 5;
+            position = 0;
+            player.style.bottom = '0px';
+            scoreElement.innerHTML = `Score: 0`;
+            gameOverScreen.style.display = 'none';
+
+            // Restart loops
+            createObstacle();
+        }
+
+        // Start Game
+        document.addEventListener('keydown', handleInput);
+        createObstacle();
+    </script>
+</body>
+</html>

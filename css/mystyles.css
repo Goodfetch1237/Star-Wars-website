@@ -1,0 +1,16 @@
+body{
+    font-family: "Comic Sans MS";
+}
+
+h1{
+    font-family: "Star Jedi";
+}
+
+.customFont{
+    font-family:"Comic Sans MS" !important
+}
+
+h2{
+    color:white;
+    background-color: black;
+}

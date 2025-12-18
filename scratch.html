@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holocron Scratchpad | Star Wars Lore</title>
+    <link rel="icon" type="image/jpeg" href="assets/img/darth-vader-with-red-light-saber.jpg" />
+    
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet" type="text/css" />
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --sw-red: #e60a0a;
+            --sw-gold: #ffe81f;
+            --dark-card: #1e1e1e;
+            --bg-color: #121212;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: #e0e0e0;
+            font-family: 'Open Sans', sans-serif;
+            padding-top: 50px;
+        }
+
+        .container { max-width: 900px; }
+
+        /* Professional Card Style */
+        .content-card {
+            background: var(--dark-card);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        h1, h2 {
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #fff;
+        }
+
+        .rank-number {
+            color: var(--sw-red);
+            font-weight: 800;
+            margin-right: 10px;
+        }
+
+        /* List Styling */
+        .char-list { list-style: none; padding: 0; }
+        .char-item {
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .char-item:last-child { border: none; }
+        .char-item ul {
+            font-size: 0.9rem;
+            color: #aaa;
+            margin-top: 5px;
+        }
+
+        /* Modern Button */
+        .btn-game {
+            background-color: var(--sw-red);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-block;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            border: none;
+            margin: 20px 0;
+        }
+        .btn-game:hover {
+            background-color: #fff;
+            color: var(--sw-red);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(230, 10, 10, 0.4);
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+        }
+
+        .home-link {
+            color: var(--sw-gold);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .home-link:hover { text-decoration: underline; }
+
+        #tableau-section {
+            background: white; /* Tableau usually looks best on white or its own container */
+            border-radius: 8px;
+            padding: 10px;
+            overflow: visible;
+            /* full-bleed: escape the centered .container and fill viewport width */
+            width: 100vw;
+            box-sizing: border-box;
+            margin-left: calc(50% - 50vw);
+            margin-right: calc(50% - 50vw);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <a href="index.html" class="home-link"><i class="fas fa-arrow-left me-2"></i>Back to Home</a>
+
+        <div class="content-card">
+            <h1>Top 5 Most Powerful <span style="color:var(--sw-red)">Characters</span></h1>
+            <div class="char-list mt-4">
+                <div class="char-item">
+                    <h5><span class="rank-number">01</span> Anakin Skywalker / Darth Vader</h5>
+                    <ul>
+                        <li>Chosen One</li>
+                        <li>Immense raw Force power</li>
+                    </ul>
+                </div>
+                <div class="char-item">
+                    <h5><span class="rank-number">02</span> Luke Skywalker</h5>
+                    <ul>
+                        <li>Defeated Darth Vader</li>
+                        <li>Redeemed Anakin</li>
+                    </ul>
+                </div>
+                <div class="char-item">
+                    <h5><span class="rank-number">03</span> Emperor Palpatine (Darth Sidious)</h5>
+                    <ul>
+                        <li>Master of the dark side</li>
+                        <li>Manipulated the fall of the Jedi</li>
+                    </ul>
+                </div>
+                <div class="char-item">
+                    <h5><span class="rank-number">04</span> Yoda</h5>
+                    <ul>
+                        <li>Grand Master of the Jedi Order</li>
+                        <li>Centuries of experience</li>
+                    </ul>
+                </div>
+                <div class="char-item">
+                    <h5><span class="rank-number">05</span> Mace Windu</h5>
+                    <ul>
+                        <li>Creator of Vaapad</li>
+                        <li>Defeated Jango Fett in combat</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-card text-center">
+            <h2 class="mb-4">Force Combat Archive</h2>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/wv38obj0D_k?si=d67caISjC2S50v0Z" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <div class="content-card text-center">
+            <img src="assets/img/Darth Sidious.jpg" alt="Darth Sidious" class="img-fluid rounded shadow">
+            <p class="mt-3 text-muted fst-italic">The Dark Lord of the Sith</p>
+        </div>
+
+        <div class="content-card text-center">
+            <h2>Hone Your Reflexes</h2>
+            <p>Ready to jump into action? Test your skills in the athlete runner challenge.</p>
+            <a href="runner.html" target="_blank" class="btn-game">Launch Game <i class="fas fa-external-link-alt ms-2"></i></a>
+        </div>
+
+        <div class="content-card">
+            <h2 class="mb-4">Competitive Analytics</h2>
+            <div id="tableau-section">
+                <div class='tableauPlaceholder' id='viz1765243868161' style='position: relative'>
+                    <noscript><a href='#'><img alt='Dashboard ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Ve&#47;Verstappenvs_Hamilton&#47;Dashboard&#47;1_rss.png' style='border: none' /></a></noscript>
+                    <object class='tableauViz' style='display:block;width:100%;height:600px;'>
+                        <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+                        <param name='embed_code_version' value='3' />
+                        <param name='site_root' value='' />
+                        <param name='name' value='Verstappenvs_Hamilton&#47;Dashboard' />
+                        <param name='tabs' value='no' />
+                        <param name='toolbar' value='yes' />
+                        <param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Ve&#47;Verstappenvs_Hamilton&#47;Dashboard&#47;1.png' />
+                        <param name='animate_transition' value='yes' />
+                        <param name='display_static_image' value='yes' />
+                        <param name='display_spinner' value='yes' />
+                        <param name='display_overlay' value='yes' />
+                        <param name='display_count' value='yes' />
+                        <param name='language' value='en-US' />
+                    </object>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type='text/javascript'>
+        (function() {
+            var divElement = document.getElementById('viz1765243868161');
+            var vizElement = divElement.getElementsByTagName('object')[0];
+            function resizeViz() {
+                var w = divElement.offsetWidth;
+                vizElement.style.width = '100%';
+                vizElement.style.height = Math.round(w * 0.5625) + 'px';
+            }
+            window.addEventListener('resize', resizeViz);
+            resizeViz();
+            var scriptElement = document.createElement('script');
+            scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+            vizElement.parentNode.insertBefore(scriptElement, vizElement);
+        })();
+    </script>
+</body>
+</html>
